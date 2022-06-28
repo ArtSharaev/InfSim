@@ -2,8 +2,7 @@ from random import randrange, choice
 import datetime as dt
 from objects.microbe import Microbe
 from objects.microbes.healthy_microbe import HealthyMicrobe
-from config import INFECTED_MICROBE_COLOR, INFECTION_ZONE, INFECTION_CHANCE, \
-    DIMENSIONS, MICROBE_SIZE, RMM, TIME_BEFORE_DEATH, BG_COLOR, DEATH_CHANCE
+from config import *
 
 
 class InfectedMicrobe(Microbe):
@@ -13,7 +12,7 @@ class InfectedMicrobe(Microbe):
         self.microbes_in_my_zone = []
         self.born_time = dt.datetime.now().second
 
-    def infect(self, microbes_list,
+    def infect(self, screen, microbes_list,
                healthy_microbes_list, infected_microbes_list):
 
         for microbe in healthy_microbes_list:
@@ -25,6 +24,8 @@ class InfectedMicrobe(Microbe):
                         (rr <= (INFECTION_CHANCE // 2) and microbe.was_infected)):
                     # если микроб переболел, то вероятность повторно заразиться
                     # в 2 раза меньше
+                    microbe.iz_rect_color = BG_COLOR
+                    microbe.render(screen)
                     microbes_list.remove(microbe)
                     healthy_microbes_list.remove(microbe)
 
@@ -49,11 +50,13 @@ class InfectedMicrobe(Microbe):
                     >= TIME_BEFORE_DEATH:
                 if randrange(1, 101) <= DEATH_CHANCE:  # умер
                     self.color = BG_COLOR
+                    self.iz_rect_color = BG_COLOR
                     self.render(screen)
                     microbes_list.remove(self)
                     infected_microbes_list.remove(self)
                 else:  # выздоровел
                     self.color = BG_COLOR
+                    self.iz_rect_color = BG_COLOR
                     self.render(screen)
                     microbes_list.remove(self)
                     infected_microbes_list.remove(self)

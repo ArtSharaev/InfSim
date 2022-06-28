@@ -1,5 +1,5 @@
 from objects.microbe import Microbe
-from config import HEALTHY_MICROBE_COLOR, BG_COLOR
+from config import HEALTHY_MICROBE_COLOR
 
 
 class HealthyMicrobe(Microbe):

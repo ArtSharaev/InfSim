@@ -29,15 +29,15 @@ class Microbe:
         # ось x
         if (self.pos_x < 0 or
                 self.pos_x > self.screen_dimensions[0] or
-                (self.pos_x < self.min_pos_x and ISOLATION_ZONE) or
-                (self.pos_x > self.max_pos_x and ISOLATION_ZONE)):
+                (ISOLATION_ZONE and self.pos_x < self.min_pos_x) or
+                (ISOLATION_ZONE and self.pos_x > self.max_pos_x)):
             self.mov_x = -self.mov_x
         self.pos_x += self.mov_x
         # ось y
         if (self.pos_y < 0 or
                 self.pos_y > self.screen_dimensions[1] or
-                self.pos_y < self.min_pos_y or
-                self.pos_y > self.max_pos_y):
+                (ISOLATION_ZONE and self.pos_y < self.min_pos_y) or
+                (ISOLATION_ZONE and self.pos_y > self.max_pos_y)):
             self.mov_y = -self.mov_y
         self.pos_y += self.mov_y
         self.render(screen)

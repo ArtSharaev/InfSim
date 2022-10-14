@@ -42,7 +42,8 @@ class InfectedMicrobe(Microbe):
                         inf_microbe.max_pos_y = microbe.max_pos_y
                         inf_microbe.min_pos_x = microbe.min_pos_x
                         inf_microbe.min_pos_y = microbe.min_pos_y
-                        inf_microbe.iz_rect_coords = microbe.iz_rect_coords
+                        if SHOW_ISOLATION_ZONE:
+                            inf_microbe.iz_rect_coords = microbe.iz_rect_coords
                     microbes_list.append(inf_microbe)
                     infected_microbes_list.append(inf_microbe)
                 else:  # не заразили
@@ -82,6 +83,7 @@ class InfectedMicrobe(Microbe):
                         h_microbe.max_pos_y = self.max_pos_y
                         h_microbe.min_pos_x = self.min_pos_x
                         h_microbe.min_pos_y = self.min_pos_y
-                        h_microbe.iz_rect_coords = self.iz_rect_coords
+                        if SHOW_ISOLATION_ZONE:
+                            h_microbe.iz_rect_coords = self.iz_rect_coords
                     microbes_list.append(h_microbe)
                     healthy_microbes_list.append(h_microbe)

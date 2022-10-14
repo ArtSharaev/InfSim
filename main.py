@@ -42,23 +42,22 @@ if __name__ == "__main__":
     seconds = seconds_to_text = 0
 
     running = True
-    infection_exist = True  # проверка того, что борьба идёт
+    infection_exist = True  # проверка того, что есть оба типа микробов
     while running:
-
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
-
         for microbe in microbes:  # движение всех микробов
             microbe.move(screen)
         if infection_exist:
             for microbe in infected_microbes:  # проверки для заражённых
                 microbe.infect(screen, microbes,
                                healthy_microbes, infected_microbes)
-                microbe.try_to_die_or_recovery(screen, microbes,
-                                               healthy_microbes,
-                                               infected_microbes)
+                microbe.try_die_or_recovery(screen, microbes,
+                                            healthy_microbes,
+                                            infected_microbes)
 
+        # дичь со временем
         ticks = pygame.time.get_ticks()
         minutes = int(ticks / 60000 % 24)
         seconds = int(ticks / 1000 % 60) + minutes * 60

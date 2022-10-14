@@ -1,5 +1,5 @@
 import pygame
-from config import BG_COLOR, ISOLATION_ZONE, SHOW_ISOLATION_ZONE, OTHER_COLOR
+from config import BG_COLOR, ISOLATION_ZONE, SHOW_ISOLATION_ZONE
 
 
 class Microbe:
@@ -7,16 +7,16 @@ class Microbe:
         self.screen_dimensions = dimensions
         self.size = size
         self.color = color
-        self.iz_rect_color = OTHER_COLOR
+        self.iz_rect_color = color
         self.pos_x = pos_x
         self.pos_y = pos_y
         self.mov_x = mov_x
         self.mov_y = mov_y
-        if SHOW_ISOLATION_ZONE:
-            self.iz_rect_coords = (self.pos_x - ISOLATION_ZONE // 2,
-                                   self.pos_y - ISOLATION_ZONE // 2,
-                                   ISOLATION_ZONE, ISOLATION_ZONE)
         if ISOLATION_ZONE:
+            if SHOW_ISOLATION_ZONE:
+                self.iz_rect_coords = (self.pos_x - ISOLATION_ZONE // 2,
+                                       self.pos_y - ISOLATION_ZONE // 2,
+                                       ISOLATION_ZONE, ISOLATION_ZONE)
             self.min_pos_x = pos_x - ISOLATION_ZONE // 2
             self.max_pos_x = pos_x + ISOLATION_ZONE // 2
 
@@ -45,6 +45,7 @@ class Microbe:
     def render(self, screen):
         pygame.draw.circle(screen, self.color,
                            (self.pos_x, self.pos_y), self.size // 2)
-        if SHOW_ISOLATION_ZONE:
-            pygame.draw.rect(screen, self.iz_rect_color,
-                             self.iz_rect_coords, 1)
+        if ISOLATION_ZONE:
+            if SHOW_ISOLATION_ZONE:
+                pygame.draw.rect(screen, self.iz_rect_color,
+                                 self.iz_rect_coords, 1)
